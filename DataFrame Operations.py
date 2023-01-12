@@ -730,4 +730,21 @@ users_df.join(course_enrolments_df,'user_id','left').filter("course_id is not nu
 
 # COMMAND ----------
 
+users_df.join(course_enrolments_df,'user_id','left').groupby('user_id').agg(sum(when(course_enrolments_df['course_enrolment_id'].isNull(),0).otherwise(1)).alias('course_count')).sort(['course_count','user_id'],ascending=[0,1]).show()
+
+# COMMAND ----------
+
+users_df. \
+    join(course_enrolments_df,'user_id','left'). \
+    groupby('user_id'). \
+    agg(sum(expr("""
+        case when course_enrolment_id is null then 0 
+        else 1
+        end """
+                )).alias('course_count')). \
+    sort(['course_count','user_id'],ascending=[0,1]). \
+    show()
+
+# COMMAND ----------
+
 
