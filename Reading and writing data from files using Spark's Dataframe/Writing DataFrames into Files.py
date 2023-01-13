@@ -185,4 +185,16 @@ spark.read.csv("/public/retail_db/csv/courses.csv",header=True).show(truncate=Fa
 
 # COMMAND ----------
 
+courses_df.coalesce(1).write.csv("/public/retail_db/csv/",mode='overwrite',header=True,compression='gzip')
+
+# COMMAND ----------
+
+# MAGIC %fs ls "/public/retail_db/csv/"
+
+# COMMAND ----------
+
+spark.read.csv("/public/retail_db/csv/",header=True).show()
+
+# COMMAND ----------
+
 
