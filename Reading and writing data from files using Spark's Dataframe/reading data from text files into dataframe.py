@@ -7,6 +7,16 @@ users.show()
 
 # COMMAND ----------
 
+schema = """
+    age int,
+    first_name string,
+    id int,
+    last_name string,
+    salary int
+"""
+
+# COMMAND ----------
+
 # MAGIC %fs ls "/public/retail_db"
 
 # COMMAND ----------
@@ -39,7 +49,11 @@ users.write.csv("/public/retail_db/write/csv/users.csv",mode="overwrite",sep='|'
 
 # COMMAND ----------
 
-spark.read.csv("/public/retail_db/write/csv/users.csv",sep='|').show()
+spark.read.schema(schema).csv("/public/retail_db/write/csv/users.csv",sep='|').show()
+
+# COMMAND ----------
+
+spark.read.text("/public/retail_db/write/csv/users.csv").show(truncate=False)
 
 # COMMAND ----------
 
