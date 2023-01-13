@@ -197,4 +197,16 @@ spark.read.csv("/public/retail_db/csv/",header=True).show()
 
 # COMMAND ----------
 
+spark.read.text("/public/retail_db/csv/").show()
+
+# COMMAND ----------
+
+courses_df.coalesce(1).write.csv("/public/retail_db/csv_sep/",mode='overwrite',sep='|',header=True,compression='gzip')
+
+# COMMAND ----------
+
+spark.read.text("/public/retail_db/csv_sep/").show(truncate=False)
+
+# COMMAND ----------
+
 
